@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Magnum</title>
+<link href="Opus.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<div class="Scene1">
+		<div>magnum</div>
+		<button id="start">Start</button>
+	</div>
+	
+	<div class="Scene2">
+		<div>Please Wait</div>
+		<div id="clock">2:00</div>
+		<button id="continue" style="visibility:hidden">continue</button>
+	</div>
+	
+	<div class="Scene3">
+		<div>Enter your Aggie Email address to be Entered into the drawing</div>
+		<form>
+			<input type="email" placeholder="example@aggies.ncat.edu">
+			<button type="submit">enter</button>
+		</form>
+		
+	</div>
+</body>
+	
+	<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+  <script src="https://bitstorm.org/jquery/shadow-animation/jquery.animate-shadow-min.js"></script> <!-- shadow animaiton plugin -->
+	
+<script>
+	
+	$("#start").click(function(){
+		$(".Scene1").hide();
+		$(".Scene2").css("visibility","visible");
+						 
+		var time = 119;
+		var tf = true;
+
+		// Update the count down every 1 second
+		var clock = setInterval(function() {
+			
+			var minutes = (time / 60) | 0;
+			var seconds = time % 60;
+			var format = minutes + ":" + ((seconds < 10) ? "0" + seconds : seconds);
+			
+			// Display the result in the element with id="clock"
+		  	$("#clock").text(format);
+			time--;
+			
+			// If the count down is finished, write some text
+		  	if (time <= 0) {
+				clearInterval(clock);
+				$("#clock").text("0:00");
+				
+				$("#continue").css("visibility","visible");
+				
+				var flash = setInterval(function(){
+					tf = !tf;
+					$("#clock").css("visibility", (tf ? "visible":"hidden"));
+				} ,500);
+		  	}
+		}, 100);	
+	});
+	
+	$("#continue").click(function(){
+		$(".Scene2").hide();
+		$(".Scene3").css("visibility","visible");
+	});
+	
+</script>
+</html>

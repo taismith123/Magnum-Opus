@@ -1,0 +1,26 @@
+@charset "utf-8";
+/* CSS Document */
+
+@-webkit-keyframes colorPulse {
+  0% {background-color: #FF6746;}
+  25% {background-color: #DF6CFF;}
+  50% {background-color: #718CFF;}
+  75% {background-color: #43D788;}
+  100% {background-color: #FFE640;}
+}
+
+body {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #204681;
+  -webkit-animation: colorPulse 10s infinite alternate;
+  background-blend-mode: color-dodge;
+}
+
+.Scene2{
+	visibility: hidden;
+}
+
+.Scene3{
+	visibility: hidden;
+}

@@ -7,12 +7,12 @@
 </head>
 
 <body>
-	<div class="scenes" class="Scene1">
+	<div class="Scene1">
 		<div>magnum</div>
 		<button class="next" id="start">Start</button>
 	</div>
 	
-	<div class="scenes" class="Scene2">
+	<div class="Scene2">
 		<button class="home">home</button>
 		<div>Please Wait for a ticket</div>
 		<div id="clock">2:00</div>
@@ -20,7 +20,7 @@
 		<button class="next" id="skip">skip</button>
 	</div>
 	
-	<div class="scenes" class="Scene3">
+	<div class="Scene3">
 		<button class="home">home</button>
 		
 		<div>Enter your Aggie Email address to be Entered into the drawing</div>
@@ -36,7 +36,7 @@
 		
 	</div>
 	
-	<div class="scenes" class="Scene4">
+	<div class="Scene4">
 		<h1><div class="tickets"></div></h1>
 		<div>you have been entered!</div>
 		<button class="home">home</button>
@@ -159,6 +159,9 @@
 		else{alert("Not enough Tickets");}
 		
 	});
+	
+	
+//	$(".tickets").text("you have " + tickets + ((tickets == 1)? " ticket":" tickets"));
 	
 	
 </script>

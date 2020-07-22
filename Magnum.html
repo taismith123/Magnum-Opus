@@ -7,25 +7,42 @@
 </head>
 
 <body>
-	<div class="Scene1">
+	<div class="scenes" class="Scene1">
 		<div>magnum</div>
-		<button id="start">Start</button>
+		<button class="next" id="start">Start</button>
 	</div>
 	
-	<div class="Scene2">
-		<div>Please Wait</div>
+	<div class="scenes" class="Scene2">
+		<button class="home">home</button>
+		<div>Please Wait for a ticket</div>
 		<div id="clock">2:00</div>
-		<button id="continue" style="visibility:hidden">continue</button>
+		<button class="next" id="continue" style="visibility:hidden">continue</button>
+		<button class="next" id="skip">skip</button>
 	</div>
 	
-	<div class="Scene3">
+	<div class="scenes" class="Scene3">
+		<button class="home">home</button>
+		
 		<div>Enter your Aggie Email address to be Entered into the drawing</div>
-		<form>
-			<input type="email" placeholder="example@aggies.ncat.edu">
-			<button type="submit">enter</button>
+		
+		<iframe name="hidden" style="display: none;"></iframe>
+		
+		<form id="email" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSd6LrXa2MwBuFyc2Ewa5MK06g2vSOri0qfCLGednWCy0eGgrQ/formResponse" target="hidden">
+			<input type="text" name="entry.1100716498" placeholder="example@aggies.ncat.edu" />
+			
 		</form>
+		<button id="enter" type="submit">enter</button>
+		<div class="tickets"></div>
 		
 	</div>
+	
+	<div class="scenes" class="Scene4">
+		<h1><div class="tickets"></div></h1>
+		<div>you have been entered!</div>
+		<button class="home">home</button>
+		<button class="next">Enter Again</button>
+	</div>
+	
 </body>
 	
 	<script
@@ -37,15 +54,52 @@
 	
 <script>
 	
-	$("#start").click(function(){
-		$(".Scene1").hide();
-		$(".Scene2").css("visibility","visible");
-						 
-		var time = 119;
+	var scene = 1;
+	var tickets = 0;
+	var time = 120;
+	
+	function next(){
+		
+		$(".tickets").text("you have " + tickets + ((tickets == 1)? " ticket":" tickets"));
+		$(".Scene" + scene).hide();
+		
+		if(scene == 4){
+			update();
+			clockStart();
+			$(".Scene2").show();
+			scene = 2;
+		}
+		
+		else{			
+			$(".Scene" + (scene + 1)).css("visibility","visible").show();
+			scene++;
+		}
+	}
+	
+	function home(){
+	
+		$(".Scene" + scene).hide();
+		$(".Scene1").show();
+		scene = 1;
+	}
+	
+	function update(){
+		$(".tickets").text(scene*10);
+		$(".tickets").text("you have " + tickets + ((tickets == 1)? " ticket":" tickets"));
+		clearInterval(clock);
+		time = 120;
+	}
+	
+	function clockStart(){	
+		
+		$("#continue").css("visibility","hidden");
+		$("#skip").show();
 		var tf = true;
 
 		// Update the count down every 1 second
 		var clock = setInterval(function() {
+			
+			if(scene != 2){clearInterval(clock);}
 			
 			var minutes = (time / 60) | 0;
 			var seconds = time % 60;
@@ -58,22 +112,57 @@
 			// If the count down is finished, write some text
 		  	if (time <= 0) {
 				clearInterval(clock);
+				time = 120;
 				$("#clock").text("0:00");
+				tickets++;
 				
 				$("#continue").css("visibility","visible");
+				$("#skip").hide();
 				
 				var flash = setInterval(function(){
+					if(scene != 2){clearInterval(flash); $("#clock").css("visibility","visible");}
 					tf = !tf;
 					$("#clock").css("visibility", (tf ? "visible":"hidden"));
 				} ,500);
 		  	}
-		}, 100);	
+		}, 100);
+	}
+	
+	
+	
+	$(".next").click(function(){
+		next();
+		update();
+		$("#clock").css("visibility","visible");
 	});
 	
-	$("#continue").click(function(){
-		$(".Scene2").hide();
-		$(".Scene3").css("visibility","visible");
+	$(".home").click(function(){
+		home();
+		update();
 	});
+	
+	$("#start").click(function(){
+		update();
+		if(time == 120){clockStart();}
+	});
+	
+	$("#enter").click(function(){
+		update();
+		$(".tickets").text("you have " + tickets + ((tickets == 1)? " ticket":" tickets"));
+//		$(".tickets").text("0");
+		if(tickets > 0){
+			tickets--;
+			console.log(tickets);
+			$("#email").submit();
+			next();
+		}
+		else{alert("Not enough Tickets");}
+		
+	});
+	
+	
+//	$(".tickets").text("you have " + tickets + ((tickets == 1)? " ticket":" tickets"));
+	
 	
 </script>
 </html>

@@ -19,8 +19,32 @@ body {
 
 .Scene2{
 	visibility: hidden;
+	width: 100%;
+	align-content: center;
 }
 
 .Scene3{
 	visibility: hidden;
+}
+
+.Scene4{
+	visibility: hidden;
+}
+
+div:not(.scenes){
+	width:700px;
+	height:100px;
+	font-size: 50px;
+}
+
+input{
+	width:400px;
+	height:50px;
+	font-size: 30px;
+}
+
+button{
+	width:200px;
+	height:70px;
+	font-size: 30px;
 }

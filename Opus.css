@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
 
-@-webkit-keyframes colorPulse {
+@-webkit-keyframes colorPulse { /* Background Color Animation */
   0% {background-color: #FF6746;}
   25% {background-color: #DF6CFF;}
   50% {background-color: #718CFF;}
@@ -9,23 +9,7 @@
   100% {background-color: #FFE640;}
 }
 
-@-webkit-keyframes move {
-  40% {
-    -webkit-transform: translateY(var(--move));
-            transform: translateY(var(--move));
-    text-shadow: var(--shadow-active);
-  }
-}
-
-@keyframes move {
-  40% {
-    -webkit-transform: translateY(var(--move));
-            transform: translateY(var(--move));
-    text-shadow: var(--shadow-active);
-  }
-}
-
-@keyframes float {
+@keyframes float { /* Home Page Logo Float Animation */
 	50% {transform: translateY(20px);}
 }
 
@@ -36,6 +20,7 @@ body {
   -webkit-animation: colorPulse 15s infinite alternate;
   background-blend-mode: color-dodge;
 }
+
 /*
 =================================================================================================
 =======================================  Scene 1  ===============================================
@@ -50,7 +35,7 @@ body {
 	justify-content: center;
 	display: flex;
 	position: absolute;
-	z-index: 5;
+	z-index: 4;
 }
 
 #title{
@@ -80,16 +65,116 @@ body {
 =================================================================================================
 */
 
-.Scene2{
+.Scene2 {
 	visibility: hidden;
 	
 	height: 500px;
 	width: 99%;
+	position: absolute;
 	align-items: center;
+	justify-content: center;
+	display: flex; 
+	z-index: 3;
+}
+
+#c2 {
+	position: absolute;
+	top: 250px;
+	text-align: center;
+}
+
+#formBox {
+	position: fixed;
+	width: 100%;
+	height: 100px;
+	top: 450px;
+	display: flex;
+	justify-content: center;
+}
+
+#enter {
+	height: 86px;
+	margin-left: 10px;
+	border-radius: 40px;
+	border-style: hidden;
+}
+
+/*
+=================================================================================================
+=======================================  Scene 3  ===============================================
+=================================================================================================
+*/
+
+.Scene3 {
+	visibility: hidden;
+	
+	height: 500px;
+	width: 99%;
+	position: absolute;
+	z-index: 2;
+	justify-content: center;
+	display: flex;
+	filter: blur(0px);
+}
+
+#c3 {
+	position: absolute;
+	font-size: 100px;
+	top: 270px;
+	margin-left: -15px;
+}
+
+#t3 {
+	position: absolute;
+	width: 100%;
+	height: auto;
+	top: 390px;
+	text-align: center;
+}
+
+#t32 {
+	position: absolute;
+	width: 100%;
+	height: auto;
+	top: 440px;
+	text-align: center;
+	font-size: 30px;
+}
+
+#enter2 {
+	position: absolute;
+	align-self: center;
+	top: 505px;
+	border-radius: 40px;
+	border-style: hidden;
+}
+
+
+#entrants {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+}
+
+/*
+=================================================================================================
+=======================================  Scene T  ===============================================
+=================================================================================================
+*/
+
+.SceneT{
+	visibility: hidden;
+	
+	height: 100%;
+	width: 100%;
 	justify-content: center;
 	display: flex;
 	position: absolute;
-	z-index: 4;
+	line-height: 600px;
+	z-index: 5;
+	margin-left: -8px;
+	margin-top: -8px;
+	background-color: rgba(0,0,0,0.65);
 }
 
 #clock {
@@ -107,7 +192,7 @@ body {
 	position: absolute;
 	width: 510px;
 	height: 80px;
-	transform: translate(80px, 335px);
+	transform: translate(80px, 575px);
 }
 
 #skip{
@@ -122,86 +207,7 @@ body {
 	border-radius: 40px;
 	font-size: 40px;
 }
-/*
-=================================================================================================
-=======================================  Scene 3  ===============================================
-=================================================================================================
-*/
 
-.Scene3 {
-	visibility: hidden;
-	
-	height: 500px;
-	width: 99%;
-	position: absolute;
-	align-items: center;
-	justify-content: center;
-	z-index: 3;
-}
-
-#c3 {
-	position: absolute;
-	top: 250px;
-	text-align: center;
-}
-
-#formBox {
-	position: fixed;
-	width: 100%;
-	height: 100px;
-	top: 450px;
-}
-
-#enter {
-	position: fixed;
-	left: 625px;
-	height: 86px;
-}
-
-#email {
-	position: fixed;
-	left: 150px;
-}
-
-input {
-	width:400px;
-	height:50px;
-	font-size: 28px;
-	font-family: 'Fredoka One', cursive;
-	padding: 16px 32px;
-	letter-spacing: 1.5px;
-	
-}
-
-#t3 {
-	position: absolute;
-	width: 100%;
-	height: 150px;
-	top: 600px;
-	text-align: center;
-}
-/*
-=================================================================================================
-=======================================  Scene 4  ===============================================
-=================================================================================================
-*/
-
-.Scene4 {
-	visibility: hidden;
-	
-	height: 500px;
-	width: 99%;
-	position: absolute;
-	z-index: 2;
-}
-
-#t4 {
-	position: absolute;
-	width: 100%;
-	height: 150px;
-	top: 400px;
-	text-align: center;
-}
 
 /*
 =================================================================================================
@@ -217,30 +223,39 @@ input {
 	text-shadow: 3px 3px 3px #000000;
 }
 
-.tickets{
+.captionB{
 	font-size: 50px;
 	font-family: 'Fredoka One', cursive;
 	font-weight: 1000;
 	color: rgba(54,54,54,0.79);
-/*	text-shadow: 3px 3px 3px #000000;*/
 }
 
-
 .home {
-	position: fixed;
-	align-self: flex-start;
-	left: 8px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
 	padding: 0px 0px;
 	height: 50px;
+	z-index: 1;
+	border-radius: 30px;
+	border-style: hidden;
 }
 
 .house {
-	height: 50px;
-	width: 50px;
+	height: 45px;
+	width: 45px;
 }
 
-
-
+input {
+	width:400px;
+	height:50px;
+	font-size: 28px;
+	font-family: 'Fredoka One', cursive;
+	padding: 16px 32px;
+	letter-spacing: 1.5px;
+	border-radius: 40px;
+	border-style: hidden;
+}
 
 /*
 =================================================================================================
@@ -249,6 +264,21 @@ input {
 =================================================================================================
 */
 
+@-webkit-keyframes move {
+  40% {
+    -webkit-transform: translateY(var(--move));
+            transform: translateY(var(--move));
+    text-shadow: var(--shadow-active);
+  }
+}
+
+@keyframes move {
+  40% {
+    -webkit-transform: translateY(var(--move));
+            transform: translateY(var(--move));
+    text-shadow: var(--shadow-active);
+  }
+}
 
 button {
   --text: #FFF;

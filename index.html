@@ -5,57 +5,67 @@
 <title>Magnum Opus</title>
 <link href="Opus.css" rel="stylesheet" type="text/css">
 	
+<!-- fonts	-->
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&amp;display=swap" rel="stylesheet" />
-	
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
-	
 <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@1,500&display=swap" rel="stylesheet">
 	
 </head>
 
 <body>
 	
-	
+
 	<div class="Scene1">
 		<div id="title">Magnum</div>
 		<div class="startBox"><button class="next" id="start">Start</button></div>
-	</div>
+	</div>	
 	
 	<div class="Scene2">
-		<button class="home" ><img class="house" src="https://raw.githubusercontent.com/AmonF/Magnum-Opus/master/house.png"></button>
-		<div class="caption">Please Wait for a ticket..</div>
-		<div id="clock">2:00</div>
+		<button class="home"><img class="house" src="house.png"></button> <!-- home button	-->
 		
-		<div class="skipBox">
-			<button class="next" id="continue" style="visibility:hidden">continue</button>
-			<button class="next" id="skip">skip</button>
-		</div>
-	</div>
-	
-	<div class="Scene3">
-		<button class="home"><img class="house" src="https://raw.githubusercontent.com/AmonF/Magnum-Opus/master/house.png"></button>
-		
-		<div class="caption" id="c3">Enter your Aggie Email address to be Entered into the drawing</div>
+		<div class="caption" id="c2">Enter your Aggie email address to Get Started!</div>
 		
 		<iframe name="hidden" style="display: none;"></iframe>
 		
-		<div id="formBox">
-			<form id="email" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSd6LrXa2MwBuFyc2Ewa5MK06g2vSOri0qfCLGednWCy0eGgrQ/formResponse" target="hidden">
+		<div id="formBox"> <!--	link to visitor google form -->
+			<form id="visitors" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSd6LrXa2MwBuFyc2Ewa5MK06g2vSOri0qfCLGednWCy0eGgrQ/formResponse" target="hidden">
 				<input type="text" name="entry.1100716498" placeholder="example@aggies.ncat.edu" />
 
 			</form>
 			<button id="enter" type="submit">enter</button>
 		</div>
-		<div class="tickets" id="t3"></div>
 		
+	</div>	
+	
+	<div class="Scene3">
+		<button class="home"><img class="house" src="house.png"></button> <!-- home button -->
+		
+		<!-- link to entrants google form	-->
+		<form id="entrants" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSekj3CO6ULybY8l0p1LReB4TYdtIXfRoLly76ewUvMGbkFg7Q/formResponse" target="hidden">
+			<input type="text" name="entry.1367855836" placeholder="example@aggies.ncat.edu" style="visibility: hidden" />
+			<input type="text" placeholder="example@aggies.ncat.edu" disabled	 />
+
+		</form>
+		<button id="enter2" type="submit">enter</button>
+		
+		<div class="caption" id="c3">$100</div>
+		<div class="captionB" id="t3"> 0/20 </div>
+		<div class="captionB" id="t32"> entrants </div>
 	</div>
 	
-	<div class="Scene4">
-		<button class="home"><img class="house" src="https://raw.githubusercontent.com/AmonF/Magnum-Opus/master/house.png"></button>
-		<div class="tickets" id="t4"></div>
-		<div>you have been entered!</div>
-		<button class="next">Enter Again?</button>
+	<div class="SceneT"> <!-- timer overlay	-->
+		<div class="caption">Please Wait to Enter..</div>
+		<div id="clock">0:30</div>
+		
+		<div class="skipBox">
+			<button class="next" id="continue" style="visibility:hidden">continue</button>
+			<button id="skip">cancel</button>
+		</div>
 	</div>
+	
+
+	
+
 	
 </body>
 	
@@ -68,118 +78,142 @@
 	
 <script>
 	
-	window.onload = function(){
+/*
+=================================================================================================
+=======================================  Declarations  ==========================================
+=================================================================================================
+*/
+	
+	window.onload = function(){ // initial fade in at start
 		$(".Scene1").hide().css("visibility","visible").delay(300).fadeIn();
 	};
 	
-	var scene = 1;
-	var tickets = 1;
-	var time = 120;
+	// code for the button text animation on the home page
+	document.querySelectorAll('#start').forEach(button => button.innerHTML = '<div><span>' + button.textContent.trim().split('').join('</span><span>') + '</span></div>');
 	
-	function next(){
+	var scene = 1; // start on scene 1
+	var time; // declare time variable
+	
+/*
+=================================================================================================
+========================================  Functions  ============================================
+=================================================================================================
+*/
+	
+	function next(){ //function to transiton to next scene
 		
-		$(".tickets").text("you have " + tickets + ((tickets == 1)? " ticket":" tickets"));
-		$(".Scene" + scene).fadeOut(300);
+		$(".Scene" + scene).fadeOut(300); // current scene fade out
 		
-		if(scene == 4){
-			update();
-			clockStart();
-			$(".Scene2").hide().delay(300).fadeIn(300);
-			scene = 2;
+		if(scene == 'T'){ // if timer overlay is visible
+			$("#entrants").submit(); //submit to the entrants form
+			$(".Scene3").fadeIn(300);
+			$(".Scene3").delay(1000).css("filter","blur(0px)"); // remove blur
+			scene = 3;
 		}
 		
-		else{			
+		else{ // next scene fade in
 			$(".Scene" + (scene + 1)).hide().delay(400).css("visibility","visible").fadeIn(300);
 			scene++;
 		}
 	}
 	
-	function home(){
+	function timer(t){ // timer function (t is in seconds)
+		update(t); // run the "update" function
+		clockStart(t);
+		scene = 'T';
+		
+		$(".SceneT").hide().delay(200).css("visibility","visible").fadeIn(300); // display timer overlay
+		$(".Scene3").css("filter","blur(8px)"); // blur scene 3
+	}
 	
-		$(".Scene1").fadeIn(300);
-		$(".Scene" + scene).fadeOut(300);
+	function home(){ //go home
+	
+		$(".Scene1").fadeIn(300); // fade in scene 1
+		$(".Scene" + scene).fadeOut(300); // fade out current scene
 		scene = 1;
 	}
 	
-	function update(){
-		$(".tickets").text("you have " + tickets + ((tickets == 1)? " ticket":" tickets"));
-		clearInterval(clock);
-		time = 120;
+	function update(t){ // reset the clock
+		$("#clock").css("visibility","visible").text(format(t)); // update the text and visibility
+		clearInterval(clock); // resets the interval code (look up JS intervals to learn more)
 	}
 	
-	function clockStart(){	
+	function format(t){ //time format 0:00
+		var minutes = (t / 60) | 0;
+		var seconds = t % 60;
+		var format = minutes + ":" + ((seconds < 10) ? "0" + seconds : seconds);
 		
-		$("#continue").css("visibility","hidden");
-		$("#skip").show();
-		var tf = true;
+		return format;
+	}
+	
+	function clockStart(t){	// clock countdown function
+		
+		$("#continue").css("visibility","hidden"); // hide continue button
+		$("#skip").show(); // show skip button
+		var tf = true; // boolean for flash
+		time = t;
 
 		// Update the count down every 1 second
 		var clock = setInterval(function() {
 			
-			if(scene != 2){clearInterval(clock);}
+			if(scene != 'T'){clearInterval(clock);} // only counts when clock is showing
 			
-			var minutes = (time / 60) | 0;
-			var seconds = time % 60;
-			var format = minutes + ":" + ((seconds < 10) ? "0" + seconds : seconds);
+		  	$("#clock").text(format(time)); // update clock text
+			time--; // count down 1 second
 			
-			// Display the result in the element with id="clock"
-		  	$("#clock").text(format);
-			time--;
-			
-			// If the count down is finished, write some text
-		  	if (time <= 0) {
+			// when the count down is finished
+		  	if (time < 0) {
 				clearInterval(clock);
-				time = 120;
+				time = t;
 				$("#clock").text("0:00");
-				tickets++;
 				
-				$("#continue").css("visibility","visible");
-				$("#skip").hide();
+				$("#continue").css("visibility","visible"); // show continue button
+				$("#skip").hide(); // hide skip button
 				
-				var flash = setInterval(function(){
-					if(scene != 2){clearInterval(flash); $("#clock").css("visibility","visible");}
-					tf = !tf;
-					$("#clock").css("visibility", (tf ? "visible":"hidden"));
-				} ,500);
+				// timer blink at 0 seconds
+				var flash = setInterval(function(){ 
+					if(scene != 'T'){clearInterval(flash); $("#clock").css("visibility","visible");}
+					tf = !tf; // boolean switch
+					$("#clock").css("visibility", (tf ? "visible":"hidden")); // show or hide based on tf
+				} ,500); // repeat every 500ms (half second)
 		  	}
-		}, 1000);
+		}, 1000); // tick every 1000ms (second)
 	}
 	
+/*
+=================================================================================================
+======================================= Event Listeners =========================================
+=================================================================================================
+*/
 	
-	
-	$(".next").click(function(){
-		next();
-		update();
-		$("#clock").css("visibility","visible");
+	$("#skip").click(function(){ //skip button
+		$(".SceneT").fadeOut(300); // fade out timer overlay
+		$(".Scene3").delay(1000).css("filter","blur(0px)"); // remove blur
+		scene = 3; // back to scene 3
 	});
 	
-	$(".home").click(function(){
-		home();
-		update();
+	$(".next").click(function(){ // event listener for any button with the next class
+		next(); // run the "next" function
 	});
 	
-	$("#start").click(function(){
-		update();
-		if(time == 120){clockStart();}
-//		$(this).animate("")
+	$(".home").click(function(){ // event listener for home button / home class
+		home(); // run "home"
 	});
 	
-	$("#enter").click(function(){
-		update();
-		$(".tickets").text("you have " + tickets + ((tickets == 1)? " ticket":" tickets"));
-//		$(".tickets").text("0");
-		if(tickets > 0){
-			tickets--;
-			console.log(tickets);
-			$("#email").submit();
+	
+	$("#enter").click(function(){ // scene 2 form button event listener
+		if($("#visitors > input").val().includes("@aggies.ncat.edu")){ // validates if the email is an aggie one (but easy to bypass)
+			$("#visitors").submit(); // submits the user email to the "visitors" form
+			$("#entrants > input").val($("#visitors > input").val()); // populates the user email into the "entrants" form input in scene 3
 			next();
 		}
-		else{alert("Not enough Tickets");}
+		else{alert("The email you entered does not include @aggies.ncat.edu");} // error message (needs improvement)
 		
 	});
 	
-	
-	document.querySelectorAll('#start').forEach(button => button.innerHTML = '<div><span>' + button.textContent.trim().split('').join('</span><span>') + '</span></div>');
+	$("#enter2").click(function(){ // scene 3 enter button
+		timer(30);
+	});
 	
 </script>
 </html>

@@ -27,12 +27,12 @@
 		
 		<iframe name="hidden" style="display: none;"></iframe>
 		
-		<div id="formBox"> <!--	link to visitor google form -->
+		<div id="formBox"> <!-- visitor google form -->
 			<form id="visitors" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSd6LrXa2MwBuFyc2Ewa5MK06g2vSOri0qfCLGednWCy0eGgrQ/formResponse" target="hidden">
 				<input type="text" name="entry.1100716498" placeholder="example@aggies.ncat.edu" />
 
 			</form>
-			<button id="enter" type="submit">enter</button>
+			<button id="access" type="submit">enter</button>
 		</div>
 		
 	</div>	
@@ -40,27 +40,57 @@
 	<div class="Scene3">
 		<button class="home"><img class="house" src="house.png"></button> <!-- home button -->
 		
-		<!-- link to entrants google form	-->
+		<!-- entrants google form	-->
 		<form id="entrants" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSekj3CO6ULybY8l0p1LReB4TYdtIXfRoLly76ewUvMGbkFg7Q/formResponse" target="hidden">
 			<input type="text" name="entry.1367855836" placeholder="example@aggies.ncat.edu" style="visibility: hidden" />
 			<input type="text" placeholder="example@aggies.ncat.edu" disabled	 />
-
 		</form>
-		<button id="enter2" type="submit">enter</button>
 		
-		<div class="caption" id="c3">$100</div>
-		<div class="captionB" id="t3"> 0/20 </div>
-		<div class="captionB" id="t32"> entrants </div>
+		<div id="carousel">
+			
+			<div class="line"></div>
+			
+			<div class="ballot">
+				<div class="caption c3">$100</div>
+				<div class="captionB t3"> 0/100 </div>
+				<div class="captionB t32"> entrants </div>
+				<button class="enter" id="enter1" value="120" type="submit">enter</button>
+				<!-- value is the duration -->
+			</div>
+			
+			<div class="line"></div>
+			
+			<div class="ballot">
+				<div class="caption c3">$50</div>
+				<div class="captionB t3"> 0/50 </div>
+				<div class="captionB t32"> entrants </div>
+				<button class="enter" id="enter2" value="60" type="submit">enter</button>
+			</div>
+			
+			<div class="line"></div>
+			
+			<div class="ballot">
+				<div class="caption c3">$25</div>
+				<div class="captionB t3"> 0/25 </div>
+				<div class="captionB t32"> entrants </div>
+				<button class="enter" id="enter3" value="30" type="submit">enter</button>
+			</div>
+			
+			<div class="line"></div>
+			
+		</div>
+		
 	</div>
 	
 	<div class="SceneT"> <!-- timer overlay	-->
-		<div class="caption">Please Wait to Enter..</div>
+		<div class="caption" id="cT">Please Wait to Enter..</div>
 		<div id="clock">0:30</div>
 		
 		<div class="skipBox">
 			<button class="next" id="continue" style="visibility:hidden">continue</button>
 			<button id="skip">cancel</button>
 		</div>
+		
 	</div>
 	
 
@@ -105,6 +135,7 @@
 		$(".Scene" + scene).fadeOut(300); // current scene fade out
 		
 		if(scene == 'T'){ // if timer overlay is visible
+			$(".enter").prop("disabled",false);; //re-enable button
 			$("#entrants").submit(); //submit to the entrants form
 			$(".Scene3").fadeIn(300);
 			$(".Scene3").delay(1000).css("filter","blur(0px)"); // remove blur
@@ -187,6 +218,7 @@
 */
 	
 	$("#skip").click(function(){ //skip button
+		$(".enter").prop("disabled",false); //re-enable button
 		$(".SceneT").fadeOut(300); // fade out timer overlay
 		$(".Scene3").delay(1000).css("filter","blur(0px)"); // remove blur
 		scene = 3; // back to scene 3
@@ -201,7 +233,7 @@
 	});
 	
 	
-	$("#enter").click(function(){ // scene 2 form button event listener
+	$("#access").click(function(){ // scene 2 form button event listener
 		if($("#visitors > input").val().includes("@aggies.ncat.edu")){ // validates if the email is an aggie one (but easy to bypass)
 			$("#visitors").submit(); // submits the user email to the "visitors" form
 			$("#entrants > input").val($("#visitors > input").val()); // populates the user email into the "entrants" form input in scene 3
@@ -211,9 +243,11 @@
 		
 	});
 	
-	$("#enter2").click(function(){ // scene 3 enter button
-		timer(30);
+	$(".enter").click(function(){ // scene 3 enter button
+		$(".enter").prop("disabled",true); // disable enter button to prevent double clicking glitch
+		timer($(this).val());
 	});
+
 	
 </script>
 </html>

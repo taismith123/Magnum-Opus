@@ -13,6 +13,15 @@
 	50% {transform: translateY(20px);}
 }
 
+@keyframes float2 { /* Home Page Logo Float Animation */
+	50% {transform: translateY(10px);}
+}
+
+@keyframes blur {
+	from: {filter: blur(0px)};
+	to: {filter: blur(8px)};
+}
+
 body {
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -27,7 +36,7 @@ body {
 =======================================  Scene 1  ===============================================
 =================================================================================================
 */
-.Scene1{	
+.Scene1 {	
 	visibility: hidden;
 	
 	height: 650px;
@@ -39,7 +48,26 @@ body {
 	z-index: 4;
 }
 
-#title{
+#info {
+	position: absolute;
+	top: 8px;
+	left: 8px;
+	padding: 0px 0px;
+	height: 50px;
+	width: 50px;
+	z-index: 1;
+	border-radius: 30px;
+	border-style: hidden;
+	font-size: 30px;
+	opacity: 0.75;
+}
+
+#s1 {
+	top: 8px;
+	right: 8px;
+}
+
+#title {
     text-align: center;
     font-size: 135px;
     font-family: 'Rubik', sans-serif;
@@ -48,17 +76,25 @@ body {
 	text-shadow: 6px 10px 5px #000000;
 }
 
-.startBox{
+.startBox {
 	position: absolute;
 	transform: translateY(175px);
 }
 
 #start {
-  padding: 16px 32px;
-  border-radius: 40px; 
-  background: #565656;
-  color: var(--text);
+	padding: 16px 32px;
+	border-radius: 40px; 
+	background: #565656;
+	color: var(--text);
 }
+
+#guest {
+	position: relative;
+	font-size: 25px;
+	top: 315px;
+}
+
+#guest:hover { color: rgba(89,89,89,0.59); text-decoration: underline;}
 
 /*
 =================================================================================================
@@ -81,8 +117,10 @@ body {
 #c2 {
 	position: absolute;
 	font-size: 50px;
-	top: 250px;
+	top: 245px;
 	text-align: center;
+	width: 770px;
+	animation: float2 6s ease-in-out infinite normal;
 }
 
 #formBox {
@@ -110,7 +148,7 @@ body {
 .Scene3 {
 	visibility: hidden;
 	
-	height: 500px;
+	height: 960px;
 	width: 100%;
 	position: absolute;
 	z-index: 2;
@@ -123,18 +161,19 @@ body {
 	position: absolute;
 	font-size: 100px;
 	margin-left: -15px;
+	top: -5px;
 }
 
 .t3 {
 	position: absolute;
 	font-size: 50px;
-	top: 131px;
+	top: 136px;
 	text-align: center;
 }
 
 .t32 {
 	position: absolute;
-	top: 181px;
+	top: 186px;
 	text-align: center;
 	font-size: 30px;
 }
@@ -142,7 +181,7 @@ body {
 .enter {
 	position: absolute;
 	align-self: center;
-	top: 245px;
+	top: 250px;
 	border-radius: 40px;
 	border-style: hidden;
 }
@@ -168,7 +207,7 @@ body {
 	border-top: 7px solid rgba(50,50,50,0.7);
 }
 
-.ballot {
+.raffle {
 	position: relative;
 	margin-top: 60px;
 	margin-bottom: 60px;
@@ -185,6 +224,17 @@ body {
 	margin: 40px 25px;
 	border-radius: 20px;
 	background-color: rgba(75,75,75,1.00);
+}
+
+.prize {
+	position: relative;
+	font-size: 25px;
+	top: 95px;
+}
+
+#s3 {
+	bottom: 8px;
+	right: 8px;
 }
 
 /*
@@ -255,7 +305,7 @@ body {
 	text-shadow: 3px 3px 3px #000000;
 }
 
-.captionB{
+.captionB {
 	font-family: 'Fredoka One', cursive;
 	font-weight: 1000;
 	color: rgba(54,54,54,0.79);
@@ -275,6 +325,7 @@ body {
 .house {
 	height: 45px;
 	width: 45px;
+	margin: 0px 2.5px;
 }
 
 input {
@@ -286,6 +337,17 @@ input {
 	letter-spacing: 1.5px;
 	border-radius: 40px;
 	border-style: hidden;
+}
+
+.sponsor {
+	position: absolute;
+	padding: 0px 10px;
+	height: 50px;
+	z-index: 1;
+	border-radius: 30px;
+	border-style: hidden;
+	font-size: 20px;
+	opacity: 0.75;
 }
 
 /*
@@ -381,3 +443,4 @@ button:hover span {
 html {
   box-sizing: border-box;
 }
+ 

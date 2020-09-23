@@ -14,18 +14,34 @@
 
 <body>
 	
-
-	<div class="Scene1">
+<!------------------------------------------ SCENE 1 ----------------------------------------------->
+	
+	<div class="Scene1"> <!-- each screen is a different page -->
+		<button id="info">i</button>
+		<button class="sponsor" id="s1">Sponsor Raffle</button>
 		<div id="title">Magnum</div>
 		<div class="startBox"><button class="next" id="start">Start</button></div>
 	</div>	
+	
+<!------------------------------------------ SCENE I ----------------------------------------------->
+	
+	<div class="SceneI"> <!-- timer overlay	-->
+		<div class="caption" id="cI">Please Wait to Enter..</div>
+		
+		<div class="skipBox">
+			<button class="next" id="continue" style="visibility:hidden">continue</button>
+			<button id="skip">cancel</button>
+		</div>
+	</div>
+	
+<!------------------------------------------ SCENE 2 ----------------------------------------------->
 	
 	<div class="Scene2">
 		<button class="home"><img class="house" src="house.png"></button> <!-- home button	-->
 		
 		<div class="caption" id="c2">Enter your Aggie email address to Get Started!</div>
 		
-		<iframe name="hidden" style="display: none;"></iframe>
+		<iframe name="hidden" style="display: none;"></iframe> <!-- this code is required to connect to the google form -->
 		
 		<div id="formBox"> <!-- visitor google form -->
 			<form id="visitors" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSd6LrXa2MwBuFyc2Ewa5MK06g2vSOri0qfCLGednWCy0eGgrQ/formResponse" target="hidden">
@@ -35,7 +51,11 @@
 			<button id="access" type="submit">enter</button>
 		</div>
 		
+		<div class="captionB" id="guest"> just visiting </div>
+		
 	</div>	
+	
+<!------------------------------------------ SCENE 3 ----------------------------------------------->
 	
 	<div class="Scene3">
 		<button class="home"><img class="house" src="house.png"></button> <!-- home button -->
@@ -50,9 +70,10 @@
 			
 			<div class="line"></div>
 			
-			<div class="ballot">
+			<div class="raffle">
 				<div class="caption c3">$100</div>
-				<div class="captionB t3"> 0/100 </div>
+				<div class="prize caption"> prize! </div>
+				<div class="captionB t3"> 0/300 </div>
 				<div class="captionB t32"> entrants </div>
 				<button class="enter" id="enter1" value="120" type="submit">enter</button>
 				<!-- value is the duration -->
@@ -60,18 +81,20 @@
 			
 			<div class="line"></div>
 			
-			<div class="ballot">
+			<div class="raffle">
 				<div class="caption c3">$50</div>
-				<div class="captionB t3"> 0/50 </div>
+				<div class="prize caption"> prize! </div>
+				<div class="captionB t3"> 0/150 </div>
 				<div class="captionB t32"> entrants </div>
 				<button class="enter" id="enter2" value="60" type="submit">enter</button>
 			</div>
 			
 			<div class="line"></div>
 			
-			<div class="ballot">
+			<div class="raffle">
 				<div class="caption c3">$25</div>
-				<div class="captionB t3"> 0/25 </div>
+				<div class="prize caption"> prize! </div>
+				<div class="captionB t3"> 0/75 </div>
 				<div class="captionB t32"> entrants </div>
 				<button class="enter" id="enter3" value="30" type="submit">enter</button>
 			</div>
@@ -80,7 +103,11 @@
 			
 		</div>
 		
+		<button class="sponsor" id="s3">Sponsor Raffle</button>
+		
 	</div>
+	
+<!------------------------------------------ SCENE T ----------------------------------------------->
 	
 	<div class="SceneT"> <!-- timer overlay	-->
 		<div class="caption" id="cT">Please Wait to Enter..</div>
@@ -90,15 +117,12 @@
 			<button class="next" id="continue" style="visibility:hidden">continue</button>
 			<button id="skip">cancel</button>
 		</div>
-		
 	</div>
-	
 
-	
-
-	
 </body>
 	
+	
+<!------------------------------------------ SCRIPT ------------------------------------------------>
 	<script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -229,9 +253,16 @@
 	});
 	
 	$(".home").click(function(){ // event listener for home button / home class
+		$(".enter").prop("disabled",false);
+		$(".enter").css("cursor","default");
 		home(); // run "home"
 	});
 	
+	$("#guest").click(function(){
+		$(".enter").prop("disabled",true);
+		$(".enter").css("cursor","not-allowed");
+		next();
+	});
 	
 	$("#access").click(function(){ // scene 2 form button event listener
 		if($("#visitors > input").val().includes("@aggies.ncat.edu")){ // validates if the email is an aggie one (but easy to bypass)
@@ -245,7 +276,7 @@
 	
 	$(".enter").click(function(){ // scene 3 enter button
 		$(".enter").prop("disabled",true); // disable enter button to prevent double clicking glitch
-		timer($(this).val());
+		timer($(this).val()); // this takes the value of the raffle's enter button
 	});
 
 	

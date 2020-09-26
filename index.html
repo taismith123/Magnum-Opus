@@ -6,20 +6,34 @@
 <link href="Opus.css" rel="stylesheet" type="text/css">
 	
 <!-- fonts	-->
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&amp;display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
 	
 </head>
 
 <body>
+<!------------------------------------- Pretty Background ------------------------------------------>
+	<div id="blur">
+		<div class="bg" id="bg01"></div>
+		<div class="bg" id="bg1"></div>
+		<div class="bg" id="bg2"></div>
+		<div class="bg" id="bg3"></div>
+		<div class="bg" id="bg4"></div>
+		<div class="bg" id="bg5"></div>
+	</div>
 	
 <!------------------------------------------ SCENE 1 ----------------------------------------------->
 	
 	<div class="Scene1"> <!-- each screen is a different page -->
 		<button id="info">i</button>
-		<button class="sponsor" id="s1">Sponsor Raffle</button>
-		<div id="title">Magnum</div>
+		<button class="sponsor" id="s1">Sponsor a Raffle</button>
+		<div class="bg" id="bg0"></div>
+		<div id="titleBox">
+			<div id="title">
+				<span id="black">Black</span><span id="cash">Cash</span>
+				<div id="subtitle">Enter to Win!</div>
+			</div>
+		</div>
 		<div class="startBox"><button class="next" id="start">Start</button></div>
 	</div>	
 	
@@ -53,7 +67,7 @@
 			<button id="access" type="submit">enter</button>
 		</div>
 		
-		<div class="captionB" id="guest"> just visiting </div>
+		<div class="captionB" id="guest"> Just Visiting </div>
 		
 	</div>	
 	
@@ -84,7 +98,7 @@
 			<div class="line"></div>
 			
 			<div class="raffle">
-				<div class="caption c3">$50</div>
+				<div class="c3 caption">$50</div>
 				<div class="prize caption"> prize! </div>
 				<div class="captionB t3"> 0/150 </div>
 				<div class="captionB t32"> entrants </div>
@@ -105,7 +119,7 @@
 			
 		</div>
 		
-		<button class="sponsor" id="s3">Sponsor Raffle</button>
+		<button class="sponsor" id="s3">Sponsor a Raffle</button>
 		
 	</div>
 	
@@ -116,11 +130,11 @@
 		<div id="clock">0:30</div>
 		
 		<div class="skipBox">
-			<button class="next" id="continue" style="visibility:hidden">continue</button>
+			<button id="continue" style="visibility:hidden">continue</button>
 			<button id="skip">cancel</button>
 		</div>
 	</div>
-
+	
 </body>
 	
 	
@@ -136,20 +150,24 @@
 	
 /*
 =================================================================================================
-=======================================  Declarations  ==========================================
+=====================================  Initial Events  ==========================================
 =================================================================================================
 */
 	
 	window.onload = function(){ // initial fade in at start
-		$(".Scene1").hide().css("visibility","visible").delay(300).fadeIn();
+		$("#bg0").delay(1000).fadeOut(700);
+		$("#bg01").delay(6000).fadeOut(2000);
+		$("#subtitle").hide().delay(2000).fadeIn(700);
+		$("#titleBox").hide().delay(200).css("visibility","visible").delay(200).fadeIn();
+		spin();
 	};
 	
 	// code for the button text animation on the home page
 	document.querySelectorAll('#start').forEach(button => button.innerHTML = '<div><span>' + button.textContent.trim().split('').join('</span><span>') + '</span></div>');
-	
+	   
 	var scene = 1; // start on scene 1
 	var time; // declare time variable
-	
+	var angle = 160;
 /*
 =================================================================================================
 ========================================  Functions  ============================================
@@ -160,18 +178,21 @@
 		
 		$(".Scene" + scene).fadeOut(300); // current scene fade out
 		
-		if(scene == 'T'){ // if timer overlay is visible
-			$(".enter").prop("disabled",false);; //re-enable button
-			$("#entrants").submit(); //submit to the entrants form
-			$(".Scene3").fadeIn(300);
-			$(".Scene3").delay(1000).css("filter","blur(0px)"); // remove blur
-			scene = 3;
-		}
+		// next scene fade in
+		$(".Scene" + (scene + 1)).hide().delay(400).css("visibility","visible").fadeIn(300);
+		scene++;
+	}	
+	
+	function GoTo(s){ //function to transiton to next scene
 		
-		else{ // next scene fade in
-			$(".Scene" + (scene + 1)).hide().delay(400).css("visibility","visible").fadeIn(300);
-			scene++;
+		$(".Scene" + scene).fadeOut(300); // current scene fade out
+		
+		if(scene == 'T'){ // if timer overlay is visible
+			$(".enter").prop("disabled",false); //re-enable buttons
+			$(".Scene3").delay(1000).css("filter","blur(0px)"); // remove blur
 		}
+		else{$(".Scene" + s).hide().delay(400).css("visibility","visible").fadeIn(300);} // show scene given
+		scene = s;
 	}
 	
 	function timer(t){ // timer function (t is in seconds)
@@ -237,6 +258,14 @@
 		}, 1000); // tick every 1000ms (second)
 	}
 	
+	function spin(){ //spins the background gradients
+		setInterval(function(){
+			$("body").get(0).style.setProperty("--deg", angle + "deg");
+			if(angle == 360){ angle = 0;}
+			else{ angle += 0.5;}
+		}, 50);
+	}	
+	
 /*
 =================================================================================================
 ======================================= Event Listeners =========================================
@@ -244,14 +273,17 @@
 */
 	
 	$("#skip").click(function(){ //skip button
-		$(".enter").prop("disabled",false); //re-enable button
-		$(".SceneT").fadeOut(300); // fade out timer overlay
-		$(".Scene3").delay(1000).css("filter","blur(0px)"); // remove blur
-		scene = 3; // back to scene 3
+		GoTo(3);
+	});
+	
+	$("#continue").click(function(){
+		$("#entrants").submit(); //submit to the entrants form
+		GoTo(3);
 	});
 	
 	$(".next").click(function(){ // event listener for any button with the next class
 		next(); // run the "next" function
+		$("#cash").css("animation","none");
 	});
 	
 	$(".home").click(function(){ // event listener for home button / home class

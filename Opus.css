@@ -1,12 +1,27 @@
 @charset "utf-8";
 /* CSS Document */
 
+
 @-webkit-keyframes colorPulse { /* Background Color Animation */
-  0% {background-color: #FF6746;}
-  25% {background-color: #DF6CFF;}
-  50% {background-color: #718CFF;}
-  75% {background-color: #43D788;}
-  100% {background-color: #FFE640;}
+  0% {background-color: #718CFF;}
+  20% {background-color: #43D788;}
+  40% {background-color: #FFE640;}
+  60% {background-color: #FF6746;}
+  80% {background-color: #DF6CFF;}
+  100% {background-color: #718CFF;}
+}
+
+@-webkit-keyframes fade { /* Background Color Animation */
+  0% {opacity: 1;}
+  0.39% {opacity: 1;}
+  20% {opacity: 0;}
+  80.89% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+@-webkit-keyframes start {
+  from {color: #2ee600; text-shadow: 6px 10px 5px black;}
+  to {color: white;}
 }
 
 @keyframes float { /* Home Page Logo Float Animation */
@@ -17,18 +32,81 @@
 	50% {transform: translateY(10px);}
 }
 
+/*
 @keyframes blur {
 	from: {filter: blur(0px)};
 	to: {filter: blur(8px)};
 }
+*/
 
 body {
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-color: #204681;
-	-webkit-animation: colorPulse 15s infinite alternate;
-	background-blend-mode: color-dodge;
+	--deg: 180deg;
 	margin: 0px;
+	background-color: black;
+	animation: colorPulse 20s linear infinite normal;
+	
+}
+
+/*
+=================================================================================================
+===================================  Pretty Background  =========================================
+=================================================================================================
+*/
+
+#blur {
+	filter: blur(300px);
+}
+
+.bg {
+	width: 100%;
+	height: 100vh;	
+	position: absolute;
+/*	filter: hue-rotate(var(--deg));*/
+	animation: fade 20s linear infinite normal;
+}
+
+#bg0 {
+	position: absolute;
+	animation: none;
+	background-color: black;
+	z-index: 5;
+	opacity: 1;
+}
+
+#bg01 {
+	animation: none;
+	background-image: linear-gradient(var(--deg),#55d743, #caff40);
+	z-index: 0;
+	opacity: 1;
+}
+
+#bg1 {
+	z-index: -1;
+	background-image: linear-gradient(var(--deg),#718CFF, #43d7d7);
+}
+
+#bg2 {
+	z-index: -2;
+	background-image: linear-gradient(var(--deg),#43D788, #9cff40);
+	animation-delay: 5.1s;
+}
+
+#bg3 {
+	z-index: -3;
+	background-image: linear-gradient(var(--deg),#FFE640, #ffb546);
+	animation-delay: 10.2s;
+}
+
+#bg4 {
+	z-index: -4;
+	background-image: linear-gradient(var(--deg),#FF6746, #ff46e9);
+	animation-delay: 15.3s
+}
+
+#bg5 {
+	z-index: -5;
+	background-image: linear-gradient(var(--deg),#DF6CFF, #7e6cff);
+	animation-delay: 20.4s;
 }
 
 /*
@@ -37,9 +115,7 @@ body {
 =================================================================================================
 */
 .Scene1 {	
-	visibility: hidden;
-	
-	height: 650px;
+	height: 100vh;
 	width: 100%;
 	align-items: center;
 	justify-content: center;
@@ -67,25 +143,73 @@ body {
 	right: 8px;
 }
 
+#titleBox {
+	position: absolute;
+	visibility: hidden;
+	z-index: 6;
+	transform: translateY(-155px);
+}
+
 #title {
     text-align: center;
     font-size: 135px;
     font-family: 'Rubik', sans-serif;
-    color: white;
+	font-style: italic;
+	font-weight: 650;
+    color: black;
 	animation: float 6s ease-in-out infinite normal;
+	text-shadow: 6px 10px 5px #ffffff;
+}
+
+#black {
+	color: white;
 	text-shadow: 6px 10px 5px #000000;
+	cursor: default;
+}
+
+#black:hover {
+	color: black;
+	text-shadow: 6px 10px 5px #ffffff;
+}
+
+#cash {
+	position: relative;
+	margin-left: 35px;
+	color: white;
+	text-shadow: 6px 10px 5px #000000;
+	animation: start 1.3s linear normal;
+	cursor: default;
+}
+
+#cash:hover {
+	color: #2ee600;
+	text-shadow: 6px 10px 5px black;
+}
+
+#subtitle {
+	position: absolute;
+	width: 100%;
+	top: 150px;
+	font-weight: 450;
+	font-size: 40px;
+	color: white;
+	text-shadow: 3px 4px 3px #000000;
+	cursor: default;
 }
 
 .startBox {
 	position: absolute;
-	transform: translateY(175px);
+	z-index: 1;
+	transform: translateY(95px);
+	height: 86px;
 }
 
 #start {
 	padding: 16px 32px;
 	border-radius: 40px; 
-	background: #565656;
+	background: #383838;
 	color: var(--text);
+	font-size: 50px;
 }
 
 #guest {
@@ -121,6 +245,8 @@ body {
 	text-align: center;
 	width: 770px;
 	animation: float2 6s ease-in-out infinite normal;
+	cursor: default;
+	text-shadow: 4px 4px 3px #000000;
 }
 
 #formBox {
@@ -137,6 +263,10 @@ body {
 	margin-left: 10px;
 	border-radius: 40px;
 	border-style: hidden;
+}
+
+#guest {
+	cursor: pointer;
 }
 
 /*
@@ -161,7 +291,8 @@ body {
 	position: absolute;
 	font-size: 100px;
 	margin-left: -15px;
-	top: -5px;
+	top: -15px;
+	text-shadow: 5.5px 5.5px 5px #000000;
 }
 
 .t3 {
@@ -176,6 +307,7 @@ body {
 	top: 186px;
 	text-align: center;
 	font-size: 30px;
+	cursor: pointer;
 }
 
 .enter {
@@ -202,7 +334,7 @@ body {
 	justify-content: center;
 	align-content: center;
 	display: flex;
-	background-color: rgba(237,237,237,0.60);
+	background-color: rgba(198,198,198,0.60);
 	border-bottom: 10px solid rgba(50,50,50,0.7);
 	border-top: 7px solid rgba(50,50,50,0.7);
 }
@@ -212,7 +344,7 @@ body {
 	margin-top: 60px;
 	margin-bottom: 60px;
 	height: 330px;
-	width: 300px;
+	width: 310px;
 	justify-content: center;
 	display: flex;
 }
@@ -229,7 +361,8 @@ body {
 .prize {
 	position: relative;
 	font-size: 25px;
-	top: 95px;
+	top: 90px;
+	text-shadow: 4px 4px 3px #000000;
 }
 
 #s3 {
@@ -258,6 +391,7 @@ body {
 
 #cT {
 	font-size: 50px;
+	text-shadow: 4px 4px 3px #000000;
 }
 
 #clock {
@@ -299,16 +433,18 @@ body {
 */
 
 .caption {
-	font-family: 'Roboto';
-	font-weight: 1000;
+	font-family: 'Rubik', sans-serif;
+	font-style: normal;
+	font-weight: 900;
 	color: #FFF;
-	text-shadow: 3px 3px 3px #000000;
+	cursor: default;
 }
 
 .captionB {
 	font-family: 'Fredoka One', cursive;
 	font-weight: 1000;
-	color: rgba(54,54,54,0.79);
+	color: rgba(44,44,44,0.79);
+	cursor: default;
 }
 
 .home {
@@ -341,7 +477,7 @@ input {
 
 .sponsor {
 	position: absolute;
-	padding: 0px 10px;
+	padding: 0px 20px;
 	height: 50px;
 	z-index: 1;
 	border-radius: 30px;
@@ -389,7 +525,7 @@ button {
   cursor: pointer;
   text-decoration: none;
   letter-spacing: 1.5px;
-  background: #565656;
+  background: #383838;
   color: var(--text);
   box-shadow: var(--shadow);
   -webkit-transform: translateY(var(--y));

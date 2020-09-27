@@ -13,6 +13,7 @@
 
 <body>
 <!------------------------------------- Pretty Background ------------------------------------------>
+	<div class="bg" id="bg02"></div>
 	<div id="blur">
 		<div class="bg" id="bg01"></div>
 		<div class="bg" id="bg1"></div>
@@ -36,20 +37,7 @@
 		</div>
 		<div class="startBox"><button class="next" id="start">Start</button></div>
 	</div>	
-	
-<!------------------------------------------ SCENE I ----------------------------------------------->
-	
-<!--
-	<div class="SceneI">  timer overlay	
-		<div class="caption" id="cI">Please Wait to Enter..</div>
-		
-		<div class="skipBox">
-			<button class="next" id="continue" style="visibility:hidden">continue</button>
-			<button id="skip">cancel</button>
-		</div>
-	</div>
--->
-	
+
 <!------------------------------------------ SCENE 2 ----------------------------------------------->
 	
 	<div class="Scene2">
@@ -81,11 +69,10 @@
 			<input type="text" name="entry.1367855836" placeholder="example@aggies.ncat.edu" style="visibility: hidden" />
 			<input type="text" placeholder="example@aggies.ncat.edu" disabled	 />
 		</form>
-		
 		<div id="carousel">
-			
+
 			<div class="line"></div>
-			
+
 			<div class="raffle">
 				<div class="caption c3">$100</div>
 				<div class="prize caption"> prize! </div>
@@ -94,9 +81,9 @@
 				<button class="enter" id="enter1" value="120" type="submit">enter</button>
 				<!-- value is the duration -->
 			</div>
-			
+
 			<div class="line"></div>
-			
+
 			<div class="raffle">
 				<div class="c3 caption">$50</div>
 				<div class="prize caption"> prize! </div>
@@ -104,9 +91,9 @@
 				<div class="captionB t32"> entrants </div>
 				<button class="enter" id="enter2" value="60" type="submit">enter</button>
 			</div>
-			
+
 			<div class="line"></div>
-			
+
 			<div class="raffle">
 				<div class="caption c3">$25</div>
 				<div class="prize caption"> prize! </div>
@@ -114,9 +101,39 @@
 				<div class="captionB t32"> entrants </div>
 				<button class="enter" id="enter3" value="30" type="submit">enter</button>
 			</div>
-			
+
 			<div class="line"></div>
-			
+
+			<div class="raffle">
+				<div class="caption c3">$25</div>
+				<div class="prize caption"> prize! </div>
+				<div class="captionB t3"> 0/75 </div>
+				<div class="captionB t32"> entrants </div>
+				<button class="enter" id="enter4" value="30" type="submit">enter</button>
+			</div>
+
+			<div class="line"></div>
+
+			<div class="raffle">
+				<div class="caption c3">$25</div>
+				<div class="prize caption"> prize! </div>
+				<div class="captionB t3"> 0/75 </div>
+				<div class="captionB t32"> entrants </div>
+				<button class="enter" id="enter5" value="30" type="submit">enter</button>
+			</div>
+
+			<div class="line"></div>
+
+			<div class="raffle">
+				<div class="caption c3">$25</div>
+				<div class="prize caption"> prize! </div>
+				<div class="captionB t3"> 0/75 </div>
+				<div class="captionB t32"> entrants </div>
+				<button class="enter" id="enter5" value="30" type="submit">enter</button>
+			</div>
+
+			<div class="line"></div>
+
 		</div>
 		
 		<button class="sponsor" id="s3">Sponsor a Raffle</button>
@@ -136,7 +153,29 @@
 	</div>
 	
 </body>
+		
+<!------------------------------------------ SCENE S ----------------------------------------------->
 	
+	<div id="sBox">
+		<div class="SceneS">
+<!--			<div class="caption" id="cI">Please Wait to Enter..</div>-->
+			<div id="countBox">
+				<div id="count">0</div>
+				<div id="UpDownBox">
+					<button id="up">
+						<svg height="35" width="40">
+							<polygon points="20,0 0,35 40,35" style="fill:grey;"/>
+						</svg>
+					</button>
+					<button id="down">
+						<svg height="35" width="40">
+							<polygon points="20,35 0,0 40,0" style="fill:grey;"/>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 <!------------------------------------------ SCRIPT ------------------------------------------------>
 	<script
@@ -157,9 +196,10 @@
 	window.onload = function(){ // initial fade in at start
 		$("#bg0").delay(1000).fadeOut(700);
 		$("#bg01").delay(6000).fadeOut(2000);
+		$("#bg02").delay(6000).fadeOut(2000);
 		$("#subtitle").hide().delay(2000).fadeIn(700);
 		$("#titleBox").hide().delay(200).css("visibility","visible").delay(200).fadeIn();
-		spin();
+//		spin();
 	};
 	
 	// code for the button text animation on the home page
@@ -168,6 +208,7 @@
 	var scene = 1; // start on scene 1
 	var time; // declare time variable
 	var angle = 160;
+	var count = 0;
 /*
 =================================================================================================
 ========================================  Functions  ============================================
@@ -281,6 +322,10 @@
 		GoTo(3);
 	});
 	
+	$(".sponsor").click(function(){
+		GoTo("S");
+	});
+	
 	$(".next").click(function(){ // event listener for any button with the next class
 		next(); // run the "next" function
 		$("#cash").css("animation","none");
@@ -296,6 +341,16 @@
 		$(".enter").prop("disabled",true);
 		$(".enter").css("cursor","not-allowed");
 		next();
+	});
+	
+	$("#up").click(function(){
+		count++;
+		$("#count").text(count);
+	});	
+	
+	$("#down").click(function(){
+		count--;
+		$("#count").text(count);
 	});
 	
 	$("#access").click(function(){ // scene 2 form button event listener

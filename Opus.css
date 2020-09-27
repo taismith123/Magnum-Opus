@@ -80,6 +80,13 @@ body {
 	opacity: 1;
 }
 
+#bg02 {
+	animation: none;
+	background-color: #3bbd1a;
+	z-index: -1;
+	opacity: 1;
+}
+
 #bg1 {
 	z-index: -1;
 	background-image: linear-gradient(var(--deg),#718CFF, #43d7d7);
@@ -220,6 +227,7 @@ body {
 
 #guest:hover { color: rgba(89,89,89,0.59); text-decoration: underline;}
 
+
 /*
 =================================================================================================
 =======================================  Scene 2  ===============================================
@@ -331,15 +339,18 @@ body {
 	width: 100%;
 	height: 450px;
 	
-	justify-content: center;
+	justify-content: flex-start;
 	align-content: center;
 	display: flex;
+	overflow-x: auto;
+	overflow-y: hidden;
 	background-color: rgba(198,198,198,0.60);
 	border-bottom: 10px solid rgba(50,50,50,0.7);
 	border-top: 7px solid rgba(50,50,50,0.7);
 }
 
 .raffle {
+	flex-shrink: 0;
 	position: relative;
 	margin-top: 60px;
 	margin-bottom: 60px;
@@ -356,6 +367,7 @@ body {
 	margin: 40px 25px;
 	border-radius: 20px;
 	background-color: rgba(75,75,75,1.00);
+	flex-shrink: 0;
 }
 
 .prize {
@@ -425,6 +437,58 @@ body {
 	font-size: 40px;
 }
 
+/*
+=================================================================================================
+=======================================  Scene S  ===============================================
+=================================================================================================
+*/
+
+#sBox {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+#countBox {
+	display: flex;
+	position: absolute;
+}
+
+.SceneS {
+	visibility: hidden;
+	
+	height: 100%;
+	width: 70%;
+	justify-content: center;
+	display: flex;
+	position: absolute;
+	line-height: 600px;
+	z-index: 5;
+	background-color: rgba(0,0,0,0.90);
+}
+
+#count {
+	width: 400px;
+	height: 170px;
+	font-size: 170px;
+	font-family: 'Fredoka One', cursive;
+	color: white;
+	text-shadow: 6px 10px 5px #000000;
+	position: relative;
+	text-align: center;
+	line-height: 1;
+}
+
+#up {
+	border-top-left-radius: 30px;
+	border-top-right-radius: 30px;
+	margin-bottom: 10px; 
+}
+
+#down {
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+}
 
 /*
 =================================================================================================
@@ -486,6 +550,10 @@ input {
 	opacity: 0.75;
 }
 
+button:active {
+	box-shadow: inset 0 0 15px #383838;
+	background: grey; 
+}
 /*
 =================================================================================================
 ====================================  Not My Code   =============================================
